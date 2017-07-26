@@ -1,6 +1,17 @@
 ---
 spring:
+  data:
   profiles: default
+  datasource:
+    username: root
+    url: jdbc:mysql://localhost:3306/bootstrap
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    generate-ddl: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
 logging:
   level:
     org.springframework: INFO

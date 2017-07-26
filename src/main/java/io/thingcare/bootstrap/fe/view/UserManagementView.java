@@ -53,8 +53,10 @@ public class UserManagementView extends AbstractView {
         grid.getEditor().setEnabled(true);
         grid.setSizeFull();
         grid.setItems(users);
+        grid.addColumn(User::getId).setCaption("Id");
         grid.addColumn(User::getUsername).setCaption("Name");
-        grid.addColumn(User::getPassword).setCaption("Password");
+        grid.addColumn(User::getCreatedDate).setCaption("Create date");
+        grid.addColumn(User::getRoles).setCaption("Roles");
 
         addComponent(grid);
         setExpandRatio(grid, 1f);
