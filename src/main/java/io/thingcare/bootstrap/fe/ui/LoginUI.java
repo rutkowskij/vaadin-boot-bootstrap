@@ -4,10 +4,8 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.icons.VaadinIcons;
-import com.vaadin.server.Page;
 import com.vaadin.server.Responsive;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.shared.Position;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
@@ -20,7 +18,7 @@ import org.vaadin.spring.security.shared.VaadinSharedSecurity;
 import javax.annotation.PostConstruct;
 
 
-@Title("Vaadin Login")
+@Title("Login")
 @Theme("valo-default")
 @SpringUI(path = "/login")
 public class LoginUI extends UI {
@@ -62,7 +60,6 @@ public class LoginUI extends UI {
         rootLayout.setComponentAlignment(loginLayout, Alignment.MIDDLE_CENTER);
         super.setContent(rootLayout);
         super.setSizeFull();
-        showNotification();
     }
 
     private Component buildLoginLayout(VaadinRequest request) {
@@ -131,16 +128,6 @@ public class LoginUI extends UI {
         fields.setComponentAlignment(login, Alignment.BOTTOM_LEFT);
         login.addClickListener(e -> login());
         return fields;
-    }
-
-    private void showNotification() {
-        Notification notification = new Notification("Welcome to Project Demo");
-        notification.setDescription("<span>This application is not real, it only demonstrates an application built with the <a href=\"https://vaadin.com\" target=\"_blank\">Vaadin framework</a>.</span> <span>No username or password is required, just click the <b>LogIn</b> button to continue.</span>");
-        notification.setHtmlContentAllowed(true);
-        notification.setStyleName("tray dark small closable login-help");
-        notification.setPosition(Position.BOTTOM_CENTER);
-        notification.setDelayMsec(20000);
-        notification.show(Page.getCurrent());
     }
 
     private void login() {

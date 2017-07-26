@@ -18,12 +18,12 @@ import java.util.List;
 
 
 @Secured({"ROLE_ADMIN"})
-@SpringView(name = AdminView1.VIEW_NAME)
+@SpringView(name = UserManagementView.VIEW_NAME)
 @SideBarItem(sectionId = Sections.ADMIN, caption = "User management", order = 1)
 @VaadinFontIcon(VaadinIcons.ADD_DOCK)
-public class AdminView1 extends AbstractView {
+public class UserManagementView extends AbstractView {
 
-    public static final String VIEW_NAME = "admin_view_1";
+    public static final String VIEW_NAME = "user_management_view";
 
     private final UserRepository userRepository;
 
@@ -31,10 +31,10 @@ public class AdminView1 extends AbstractView {
     private Button delBtn = new Button("Delete");
 
     @Autowired
-    public AdminView1(UserRepository userRepository) {
+    public UserManagementView(UserRepository userRepository) {
         this.userRepository = userRepository;
         setSizeFull();
-        setViewHeader("AdminView1", VaadinIcons.ADD_DOCK);
+        setViewHeader("User management", VaadinIcons.ADD_DOCK);
 
         newBtn.addStyleName(ValoTheme.BUTTON_PRIMARY);
         newBtn.setIcon(VaadinIcons.PLUS_CIRCLE);

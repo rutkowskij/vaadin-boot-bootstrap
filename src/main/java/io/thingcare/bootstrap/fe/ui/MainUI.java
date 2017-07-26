@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.annotation.PostConstruct;
 
 
-@Title("Vaadin Project")
+@Title("Boostrap Project")
 @Theme("valo-default")
 @SpringUI(path = "/")
 public class MainUI extends UI {
@@ -60,5 +60,4 @@ public class MainUI extends UI {
 		layout.setExpandRatio(viewContainer, 1.0f);
 		setContent(layout);
 	}
-
 }
