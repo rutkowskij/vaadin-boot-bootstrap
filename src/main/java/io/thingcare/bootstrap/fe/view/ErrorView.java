@@ -11,9 +11,6 @@ import com.vaadin.ui.themes.ValoTheme;
 
 import javax.annotation.PostConstruct;
 
-/**
- * Created by basakpie on 2017. 5. 11..
- */
 @SpringComponent
 @UIScope
 @SpringView

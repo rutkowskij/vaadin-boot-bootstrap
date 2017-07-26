@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Arrays;
 
 @SpringBootApplication(exclude = org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration.class)
-public class ErpApplication implements CommandLineRunner {
+public class BootstrapApplication implements CommandLineRunner {
 
     @Autowired
     UserRepository userRepository;
@@ -21,7 +21,7 @@ public class ErpApplication implements CommandLineRunner {
     PasswordEncoder passwordEncoder;
 
     public static void main(String[] args) {
-        SpringApplication.run(ErpApplication.class, args);
+        SpringApplication.run(BootstrapApplication.class, args);
     }
 
     @Override

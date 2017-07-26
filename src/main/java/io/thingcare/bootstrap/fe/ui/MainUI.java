@@ -1,9 +1,5 @@
 package io.thingcare.bootstrap.fe.ui;
 
-import io.thingcare.bootstrap.fe.sidebar.VaadinSideBar;
-import io.thingcare.bootstrap.fe.view.AccessDeniedView;
-import io.thingcare.bootstrap.fe.view.ErrorView;
-import io.thingcare.bootstrap.fe.view.ViewContainer;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.server.Responsive;
@@ -14,13 +10,15 @@ import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
+import io.thingcare.bootstrap.fe.sidebar.VaadinSideBar;
+import io.thingcare.bootstrap.fe.view.AccessDeniedView;
+import io.thingcare.bootstrap.fe.view.ErrorView;
+import io.thingcare.bootstrap.fe.view.ViewContainer;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 
-/**
- * Created by basakpie on 2017. 5. 11..
- */
+
 @Title("Vaadin Project")
 @Theme("valo-default")
 @SpringUI(path = "/")

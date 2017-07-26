@@ -1,17 +1,14 @@
 package io.thingcare.bootstrap.fe.view;
 
-import io.thingcare.bootstrap.fe.sidebar.Sections;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Label;
+import io.thingcare.bootstrap.fe.sidebar.Sections;
 import org.vaadin.spring.sidebar.annotation.SideBarItem;
 import org.vaadin.spring.sidebar.annotation.VaadinFontIcon;
 
 import javax.annotation.PostConstruct;
 
-/**
- * Created by basakpie on 2017. 5. 11..
- */
 @SpringView(name = UserView1.VIEW_NAME)
 @SideBarItem(sectionId = Sections.USER, caption = "UserView1", order = 1)
 @VaadinFontIcon(VaadinIcons.ADJUST)

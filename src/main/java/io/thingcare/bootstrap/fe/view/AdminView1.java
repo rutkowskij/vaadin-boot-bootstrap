@@ -1,13 +1,13 @@
 package io.thingcare.bootstrap.fe.view;
 
-import io.thingcare.bootstrap.be.security.User;
-import io.thingcare.bootstrap.be.security.UserRepository;
-import io.thingcare.bootstrap.fe.sidebar.Sections;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.themes.ValoTheme;
+import io.thingcare.bootstrap.be.security.User;
+import io.thingcare.bootstrap.be.security.UserRepository;
+import io.thingcare.bootstrap.fe.sidebar.Sections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.vaadin.spring.sidebar.annotation.SideBarItem;
@@ -16,12 +16,10 @@ import org.vaadin.spring.sidebar.annotation.VaadinFontIcon;
 import javax.annotation.PostConstruct;
 import java.util.List;
 
-/**
- * Created by basakpie on 2017. 5. 11..
- */
+
 @Secured({"ROLE_ADMIN"})
 @SpringView(name = AdminView1.VIEW_NAME)
-@SideBarItem(sectionId = Sections.ADMIN, caption = "AdminView1", order = 1)
+@SideBarItem(sectionId = Sections.ADMIN, caption = "User management", order = 1)
 @VaadinFontIcon(VaadinIcons.ADD_DOCK)
 public class AdminView1 extends AbstractView {
 
@@ -55,7 +53,7 @@ public class AdminView1 extends AbstractView {
         grid.getEditor().setEnabled(true);
         grid.setSizeFull();
         grid.setItems(users);
-        grid.addColumn(User::getUsername).setCaption("Name111");
+        grid.addColumn(User::getUsername).setCaption("Name");
         grid.addColumn(User::getPassword).setCaption("Password");
 
         addComponent(grid);

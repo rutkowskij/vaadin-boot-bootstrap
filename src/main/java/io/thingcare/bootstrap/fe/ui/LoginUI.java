@@ -19,9 +19,7 @@ import org.vaadin.spring.security.shared.VaadinSharedSecurity;
 
 import javax.annotation.PostConstruct;
 
-/**
- * Created by basakpie on 2017. 5. 11..
- */
+
 @Title("Vaadin Login")
 @Theme("valo-default")
 @SpringUI(path = "/login")

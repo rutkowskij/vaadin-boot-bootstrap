@@ -19,9 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Created by basakpie on 2017-05-26.
- */
+
 @SpringComponent
 @UIScope
 public class VaadinSideBar extends CustomComponent {

@@ -12,9 +12,7 @@ import com.vaadin.ui.themes.ValoTheme;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-/**
- * Created by basakpie on 2017-05-26.
- */
+
 @SuppressWarnings("unchecked")
 public abstract class AbstractView extends VerticalLayout implements View {
 

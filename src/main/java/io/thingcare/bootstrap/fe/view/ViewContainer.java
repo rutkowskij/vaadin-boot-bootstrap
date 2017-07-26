@@ -7,9 +7,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.themes.ValoTheme;
 
-/**
- * Created by basakpie on 2017-06-08.
- */
+
 @SpringViewDisplay
 public class ViewContainer extends Panel implements ViewDisplay {
 

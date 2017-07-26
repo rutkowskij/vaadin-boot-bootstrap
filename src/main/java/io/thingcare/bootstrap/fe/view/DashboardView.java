@@ -1,25 +1,26 @@
 package io.thingcare.bootstrap.fe.view;
 
-import io.thingcare.bootstrap.be.security.UserRepository;
-import io.thingcare.bootstrap.fe.sidebar.Sections;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.*;
+import com.vaadin.server.AbstractErrorMessage;
+import com.vaadin.server.ErrorMessage;
+import com.vaadin.server.Page;
+import com.vaadin.server.UserError;
 import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
+import io.thingcare.bootstrap.be.security.UserRepository;
+import io.thingcare.bootstrap.fe.sidebar.Sections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.vaadin.spring.sidebar.annotation.SideBarItem;
 import org.vaadin.spring.sidebar.annotation.VaadinFontIcon;
 
 import javax.annotation.PostConstruct;
 
-/**
- * Created by basakpie on 2017. 5. 11..
- */
+
 @SpringView(name = DashboardView.VIEW_NAME)
 @SideBarItem(sectionId = Sections.NO_GROUP, caption = "Dashboard", order = 1)
 @VaadinFontIcon(VaadinIcons.DASHBOARD)
