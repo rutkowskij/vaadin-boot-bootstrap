@@ -1,4 +1,4 @@
-package io.thingcare.bootstrap.be.config;
+package io.thingcare.bootstrap.fe.config;
 
 import com.vaadin.server.SessionInitListener;
 import com.vaadin.spring.annotation.EnableVaadin;

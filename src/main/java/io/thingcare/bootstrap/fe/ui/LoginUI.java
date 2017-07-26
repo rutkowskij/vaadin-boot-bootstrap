@@ -1,7 +1,6 @@
 package io.thingcare.bootstrap.fe.ui;
 
 import com.vaadin.annotations.Theme;
-import com.vaadin.annotations.Title;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Responsive;
@@ -9,19 +8,22 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
-import org.slf4j.LoggerFactory;
+import io.thingcare.bootstrap.fe.ui.shared.BaseUI;
+import io.thingcare.bootstrap.fe.ui.shared.ThemeHolder;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.AuthenticationException;
+import org.vaadin.spring.i18n.I18N;
 import org.vaadin.spring.security.shared.VaadinSharedSecurity;
 
 import javax.annotation.PostConstruct;
 
-
-@Title("Login")
-@Theme("valo-default")
+@Slf4j
+@Theme(ThemeHolder.DEFAULT_THEME_NAME)
 @SpringUI(path = "/login")
-public class LoginUI extends UI {
+public class LoginUI extends BaseUI {
+    public static final String TITLE_CODE = "login.title";
 
     private final VaadinSharedSecurity vaadinSecurity;
 
@@ -39,7 +41,8 @@ public class LoginUI extends UI {
     private Label loggedOutLabel;
 
     @Autowired
-    public LoginUI(VaadinSharedSecurity vaadinSecurity, Environment environment) {
+    public LoginUI(VaadinSharedSecurity vaadinSecurity, Environment environment, I18N i18n) {
+        super(i18n);
         this.vaadinSecurity = vaadinSecurity;
         this.environment = environment;
     }
@@ -70,7 +73,7 @@ public class LoginUI extends UI {
         Responsive.makeResponsive(loginPanel);
 
         if (request.getParameter("logout") != null) {
-            loggedOutLabel = new Label("You have been logged out!");
+            loggedOutLabel = new Label(i18n.get("login.logged.out"));
             loggedOutLabel.addStyleName(ValoTheme.LABEL_SUCCESS);
             loggedOutLabel.setWidth(100, Unit.PERCENTAGE);
             loginPanel.addComponent(loggedOutLabel);
@@ -84,7 +87,7 @@ public class LoginUI extends UI {
 
         loginPanel.addComponent(buildLabels());
         loginPanel.addComponent(buildFields());
-        loginPanel.addComponent(rememberMe = new CheckBox("Remember me", true));
+        loginPanel.addComponent(rememberMe = new CheckBox(i18n.get("login.remember.me"), true));
         return loginPanel;
     }
 
@@ -92,13 +95,13 @@ public class LoginUI extends UI {
         CssLayout labels = new CssLayout();
         labels.addStyleName("labels");
 
-        Label welcome = new Label("Welcome");
+        Label welcome = new Label(i18n.get("login.welcome"));
         welcome.setSizeUndefined();
         welcome.addStyleName(ValoTheme.LABEL_H4);
         welcome.addStyleName(ValoTheme.LABEL_COLORED);
         labels.addComponent(welcome);
 
-        Label title = new Label("Project Template");
+        Label title = new Label(i18n.get("login.project.name"));
         title.setSizeUndefined();
         title.addStyleName(ValoTheme.LABEL_H3);
         title.addStyleName(ValoTheme.LABEL_LIGHT);
@@ -110,15 +113,15 @@ public class LoginUI extends UI {
         HorizontalLayout fields = new HorizontalLayout();
         fields.addStyleName("fields");
 
-        username = new TextField("Username");
+        username = new TextField(i18n.get("login.username"));
         username.setIcon(VaadinIcons.USER);
         username.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
 
-        password = new PasswordField("Password");
+        password = new PasswordField(i18n.get("login.password"));
         password.setIcon(VaadinIcons.LOCK);
         password.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
 
-        login = new Button("Login");
+        login = new Button(i18n.get("login.login"));
         login.addStyleName(ValoTheme.BUTTON_PRIMARY);
         login.setDisableOnClick(true);
         login.setClickShortcut(ShortcutAction.KeyCode.ENTER);
@@ -137,16 +140,21 @@ public class LoginUI extends UI {
             username.focus();
             username.selectAll();
             password.setValue("");
-            loginFailedLabel.setValue(String.format("Login failed: %s", ex.getMessage()));
+            loginFailedLabel.setValue(String.format(i18n.get("login.failure"), ex.getMessage()));
             loginFailedLabel.setVisible(true);
             if (loggedOutLabel != null) {
                 loggedOutLabel.setVisible(false);
             }
         } catch (Exception ex) {
-            Notification.show("An unexpected error occurred", ex.getMessage(), Notification.Type.ERROR_MESSAGE);
-            LoggerFactory.getLogger(getClass()).error("Unexpected error while logging in", ex);
+            Notification.show(i18n.get("error.unexpected"), ex.getMessage(), Notification.Type.ERROR_MESSAGE);
+            log.error("Unexpected error while logging in", ex);
         } finally {
             login.setEnabled(true);
         }
+    }
+
+    @Override
+    protected String titleCode() {
+        return TITLE_CODE;
     }
 }

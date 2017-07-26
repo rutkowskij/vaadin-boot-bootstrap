@@ -11,8 +11,15 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
-
+vaadin4spring:
+  i18n:
+    message-format-cache:
+      enabled: false
+    message-provider-cache:
+      cleanup-interval-seconds: 5
 logging:
   level:
     org.springframework: INFO
+
+
 

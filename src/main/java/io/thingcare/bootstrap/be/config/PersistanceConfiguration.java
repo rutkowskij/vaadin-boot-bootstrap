@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @Configuration
 @EntityScan(basePackageClasses = {BootstrapApplication.class, Jsr310JpaConverters.class})
 @EnableJpaAuditing
-public class PersistanceConfig {
+public class PersistanceConfiguration {
 }

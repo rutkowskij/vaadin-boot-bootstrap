@@ -1,4 +1,4 @@
-package io.thingcare.bootstrap.be.config;
+package io.thingcare.bootstrap.fe.config;
 
 import com.vaadin.server.*;
 import org.jsoup.nodes.Element;
