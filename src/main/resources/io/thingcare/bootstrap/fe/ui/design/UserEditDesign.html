@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="design-properties"
+          content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;GENERATE_GETTERS&quot;:false,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;valo-default&quot;}">
+    <meta name="vaadin-version" content="8.0.5">
+    <meta name="package-mapping" content="io_thingcare_bootstrap_fe_view:io.thingcare.bootstrap.fe.view">
+</head>
+<body>
+<vaadin-vertical-layout size-full>
+    <vaadin-horizontal-layout height-full :expand>
+        <vaadin-vertical-layout size-auto>
+            <vaadin-text-field caption="Email" readonly _id="email"></vaadin-text-field>
+            <vaadin-text-field caption="First name" _id="firstName"></vaadin-text-field>
+            <vaadin-text-field caption="Last name" _id="lastName"></vaadin-text-field>
+        </vaadin-vertical-layout>
+        <vaadin-list-select caption="Roles" width="168px" data-item-type="io.thingcare.bootstrap.be.security.Role"
+                            _id="roles" :expand></vaadin-list-select>
+    </vaadin-horizontal-layout>
+    <vaadin-horizontal-layout>
+        <vaadin-button plain-text _id="save">
+            Save
+        </vaadin-button>
+    </vaadin-horizontal-layout>
+</vaadin-vertical-layout>
+</body>
+</html>

@@ -12,7 +12,9 @@ import java.util.List;
 @EntityListeners(value = AuditingEntityListener.class)
 public class User extends BaseEntity {
 
-    private String username;
+    private String email;
+    private String firstName;
+    private String lastName;
     private String password;
 
     @OneToMany(fetch = FetchType.EAGER)

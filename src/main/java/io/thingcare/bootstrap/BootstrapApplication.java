@@ -39,7 +39,9 @@ public class BootstrapApplication implements CommandLineRunner {
                 roleRepository.save(role);
 
                 User user = new User();
-                user.setUsername(name);
+                user.setEmail(name + "@thingcare.io");
+                user.setFirstName(name);
+                user.setLastName(name);
                 user.setPassword(passwordEncoder.encode("1234"));
 
                 user.setRoles(Collections.singletonList(role));

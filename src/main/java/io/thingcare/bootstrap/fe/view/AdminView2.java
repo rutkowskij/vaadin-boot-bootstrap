@@ -41,7 +41,7 @@ public class AdminView2 extends AbstractView {
         grid.addStyleName(ValoTheme.TABLE_COMPACT);
         grid.setSizeFull();
         grid.setItems(users);
-        grid.addColumn(User::getUsername).setCaption("Name");
+        grid.addColumn(User::getEmail).setCaption("Email");
         grid.addColumn(User::getPassword).setCaption("Password");
 
         addComponent(grid);

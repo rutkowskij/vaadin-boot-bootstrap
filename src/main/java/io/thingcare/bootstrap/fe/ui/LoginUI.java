@@ -146,7 +146,7 @@ public class LoginUI extends BaseUI {
                 loggedOutLabel.setVisible(false);
             }
         } catch (Exception ex) {
-            Notification.show(i18n.get("error.unexpected"), ex.getMessage(), Notification.Type.ERROR_MESSAGE);
+            Notification.show(i18n.get("common.error.unexpected"), ex.getMessage(), Notification.Type.ERROR_MESSAGE);
             log.error("Unexpected error while logging in", ex);
         } finally {
             login.setEnabled(true);

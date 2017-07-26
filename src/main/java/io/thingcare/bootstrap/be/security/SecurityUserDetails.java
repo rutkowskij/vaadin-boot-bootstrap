@@ -12,9 +12,11 @@ public class SecurityUserDetails extends User implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     public SecurityUserDetails(User user) {
-        if(user==null) return;
+        if (user == null) return;
         this.setId(user.getId());
-        this.setUsername(user.getUsername());
+        this.setEmail(user.getEmail());
+        this.setFirstName(user.getFirstName());
+        this.setLastName(user.getLastName());
         this.setPassword(user.getPassword());
         this.setCreatedDate(user.getCreatedDate());
         this.setLastModifiedDate(user.getLastModifiedDate());
@@ -24,7 +26,7 @@ public class SecurityUserDetails extends User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        for(Role role : super.getRoles()) {
+        for (Role role : super.getRoles()) {
             SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.getType().name());
             authorities.add(authority);
         }
@@ -33,7 +35,7 @@ public class SecurityUserDetails extends User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return super.getUsername();
+        return super.getEmail();
     }
 
     @Override
