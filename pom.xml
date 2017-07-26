@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.thingcare</groupId>
-    <artifactId>erp</artifactId>
+    <artifactId>vaadin-boot-bootstrap</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>erp</name>
-    <description>Simple erp</description>
+    <name>vaadin-boot-bootstrap</name>
+    <description>vaadin-boot-bootstrap</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
