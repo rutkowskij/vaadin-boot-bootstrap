@@ -16,7 +16,7 @@ public abstract class BaseUI extends TranslatableUI implements Translatable {
 
     @Override
     protected void initUI(VaadinRequest vaadinRequest) {
-
+        getPage().setTitle(i18n.get(titleCode(), vaadinRequest.getLocale()));
     }
 
     @Override

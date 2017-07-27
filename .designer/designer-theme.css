@@ -2257,6 +2257,107 @@ div.v-layout.v-horizontal.v-widget {
  * @group valo-menu
  */
 
+.valo-default .crud-template .top-bar {
+    background: white;
+    color: #197fde;
+    padding: 0 13px;
+    border-bottom: 1px solid #d0d0d0;
+}
+
+.valo-default .crud-template .padding {
+    padding: 13px;
+}
+
+.valo-default .crud-template .border {
+    border: 1px solid #d0d0d0;
+}
+
+.valo-default .crud-template .border-top {
+    border-top: 1px solid #d0d0d0;
+}
+
+.valo-default .crud-template .border-left {
+    border-left: 1px solid #d0d0d0;
+}
+
+.valo-default .crud-template .filters {
+    padding: 6.5px;
+}
+
+.valo-default .crud-template .filters .v-slot {
+    position: relative;
+}
+
+.valo-default .crud-template .content {
+    position: relative;
+}
+
+.valo-default .crud-template .list {
+    padding-right: 300px;
+}
+
+.valo-default .crud-template .inspect {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: #f2f2f2;
+    width: 300px !important;
+    border-left: 4px solid #e6e6e6;
+}
+
+.valo-default .crud-template .section {
+    padding: 6.5px;
+}
+
+.valo-default .crud-template .edit {
+    padding: 6.5px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-left: 1px solid #d9d9d9;
+    border-top: 1px solid #d9d9d9;
+}
+
+.valo-default .crud-template .search {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-bottom: 2px solid #197fde;
+    border-radius: 0;
+    max-width: 350px;
+}
+
+.valo-default .crud-template .buttons {
+    background: #fff;
+    padding: 6.5px;
+    border-left: 1px solid #d9d9d9;
+}
+
+.valo-default .crud-template[width-range~="-850px"] .list {
+    height: 50% !important;
+    padding-right: 0;
+}
+
+.valo-default .crud-template[width-range~="-850px"] .inspect {
+    position: static;
+    height: 50% !important;
+    width: 100% !important;
+    border-top: 4px solid #e6e6e6;
+    border-left: none;
+}
+
+.valo-default .crud-template[width-range~="-850px"] .section, .valo-default .crud-template[width-range~="-850px"] .edit {
+    padding: 3.25px;
+}
+
+.valo-default .crud-template[width-range~="-850px"] .half {
+    width: 50% !important;
+    float: left;
+}
+
+.valo-default .crud-template[width-range~="-650px"] .half {
+    width: 100% !important;
+}
+
 .valo-default.v-app, .valo-default.v-app-loading {
     font: 300 12px/1.55 "Open Sans", sans-serif;
     color: #474747;

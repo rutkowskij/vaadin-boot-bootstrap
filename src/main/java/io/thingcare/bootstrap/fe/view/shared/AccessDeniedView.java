@@ -1,4 +1,4 @@
-package io.thingcare.bootstrap.fe.view;
+package io.thingcare.bootstrap.fe.view.shared;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;

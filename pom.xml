@@ -50,31 +50,11 @@
             <artifactId>vaadin-spring-ext-boot</artifactId>
             <version>${vaadin.extensions.version}</version>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>org.vaadin.spring.extensions</groupId>-->
-        <!--<artifactId>vaadin-spring-ext-core</artifactId>-->
-        <!--<version>${vaadin.extensions.version}</version>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.vaadin.spring.extensions</groupId>
             <artifactId>vaadin-spring-ext-security</artifactId>
             <version>${vaadin.extensions.version}</version>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>org.vaadin.spring.extensions</groupId>-->
-        <!--<artifactId>vaadin-spring-ext-test</artifactId>-->
-        <!--<version>${vaadin.extensions.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>org.vaadin.spring.addons</groupId>-->
-        <!--<artifactId>vaadin-spring-addon-eventbus</artifactId>-->
-        <!--<version>${vaadin.extensions.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>org.vaadin.spring.addons</groupId>-->
-        <!--<artifactId>vaadin-spring-addon-mvp</artifactId>-->
-        <!--<version>${vaadin.extensions.version}</version>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.vaadin.spring.addons</groupId>
             <artifactId>vaadin-spring-addon-sidebar</artifactId>
