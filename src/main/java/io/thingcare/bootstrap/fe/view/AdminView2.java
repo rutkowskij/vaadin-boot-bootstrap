@@ -7,7 +7,6 @@ import com.vaadin.ui.themes.ValoTheme;
 import io.thingcare.bootstrap.be.security.User;
 import io.thingcare.bootstrap.be.security.UserRepository;
 import io.thingcare.bootstrap.fe.sidebar.Sections;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.vaadin.spring.sidebar.annotation.SideBarItem;
 import org.vaadin.spring.sidebar.annotation.VaadinFontIcon;
@@ -26,7 +25,6 @@ public class AdminView2 extends AbstractView {
 
     final UserRepository userRepository;
 
-    @Autowired
     public AdminView2(UserRepository userRepository) {
         this.userRepository = userRepository;
         setSizeFull();

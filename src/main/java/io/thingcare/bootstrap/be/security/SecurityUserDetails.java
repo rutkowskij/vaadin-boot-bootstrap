@@ -8,9 +8,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class SecurityUserDetails extends User implements UserDetails {
-
-    private static final long serialVersionUID = 1L;
-
     public SecurityUserDetails(User user) {
         if (user == null) return;
         this.setId(user.getId());

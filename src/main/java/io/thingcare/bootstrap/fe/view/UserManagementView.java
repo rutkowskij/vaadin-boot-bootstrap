@@ -9,7 +9,6 @@ import com.vaadin.ui.themes.ValoTheme;
 import io.thingcare.bootstrap.be.security.User;
 import io.thingcare.bootstrap.be.security.UserRepository;
 import io.thingcare.bootstrap.fe.sidebar.Sections;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.vaadin.spring.sidebar.annotation.SideBarItem;
 import org.vaadin.spring.sidebar.annotation.VaadinFontIcon;
@@ -32,7 +31,6 @@ public class UserManagementView extends AbstractView {
     private Button delBtn = new Button("Delete");
     private UserEditView userEditView = new UserEditView();
 
-    @Autowired
     public UserManagementView(UserRepository userRepository) {
         this.userRepository = userRepository;
         setSizeFull();

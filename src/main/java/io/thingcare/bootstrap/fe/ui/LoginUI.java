@@ -11,8 +11,6 @@ import com.vaadin.ui.themes.ValoTheme;
 import io.thingcare.bootstrap.fe.ui.shared.BaseUI;
 import io.thingcare.bootstrap.fe.ui.shared.ThemeHolder;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.security.core.AuthenticationException;
 import org.vaadin.spring.i18n.I18N;
 import org.vaadin.spring.security.shared.VaadinSharedSecurity;
@@ -27,8 +25,6 @@ public class LoginUI extends BaseUI {
 
     private final VaadinSharedSecurity vaadinSecurity;
 
-    private final Environment environment;
-
     private TextField username;
 
     private PasswordField password;
@@ -40,11 +36,9 @@ public class LoginUI extends BaseUI {
     private Label loginFailedLabel;
     private Label loggedOutLabel;
 
-    @Autowired
-    public LoginUI(VaadinSharedSecurity vaadinSecurity, Environment environment, I18N i18n) {
+    public LoginUI(VaadinSharedSecurity vaadinSecurity, I18N i18n) {
         super(i18n);
         this.vaadinSecurity = vaadinSecurity;
-        this.environment = environment;
     }
 
     @PostConstruct

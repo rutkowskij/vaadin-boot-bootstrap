@@ -5,11 +5,8 @@ import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.UIScope;
-import com.vaadin.spring.navigator.SpringNavigator;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.vaadin.spring.security.VaadinSecurity;
 import org.vaadin.spring.sidebar.SideBarItemDescriptor;
 import org.vaadin.spring.sidebar.SideBarSectionDescriptor;
@@ -24,29 +21,19 @@ import java.util.List;
 @UIScope
 public class VaadinSideBar extends CustomComponent {
 
+    private static final String VALO_MENU_VISIBLE = "valo-menu-visible";
+    private static final String VALO_MENU_TOGGLE = "valo-menu-toggle";
     private final VaadinSecurity vaadinSecurity;
-
-    private final SpringNavigator springNavigator;
-
-    private final Environment environment;
-
     private final SideBarUtils sideBarUtils;
-
     private SectionComponentFactory<CssLayout> sectionComponentFactory;
     private ItemComponentFactory itemComponentFactory;
     private ItemFilter itemFilter;
 
-    private static final String VALO_MENU_VISIBLE  = "valo-menu-visible";
-    private static final String VALO_MENU_TOGGLE   = "valo-menu-toggle";
-
-    @Autowired
-    public VaadinSideBar(SideBarUtils sideBarUtils, VaadinSecurity vaadinSecurity, SpringNavigator springNavigator, Environment environment) {
+    public VaadinSideBar(SideBarUtils sideBarUtils, VaadinSecurity vaadinSecurity) {
         setPrimaryStyleName(ValoTheme.MENU_ROOT);
         setSizeUndefined();
         this.sideBarUtils = sideBarUtils;
         this.vaadinSecurity = vaadinSecurity;
-        this.springNavigator = springNavigator;
-        this.environment = environment;
     }
 
     @Override
@@ -156,6 +143,10 @@ public class VaadinSideBar extends CustomComponent {
         return itemComponentFactory;
     }
 
+    public ItemFilter getItemFilter() {
+        return itemFilter;
+    }
+
     public void setItemFilter(ItemFilter itemFilter) {
         if (isAttached()) {
             throw new IllegalStateException("An ItemFilter cannot be set when the SideBar is attached");
@@ -163,67 +154,33 @@ public class VaadinSideBar extends CustomComponent {
         this.itemFilter = itemFilter;
     }
 
-    public ItemFilter getItemFilter() {
-        return itemFilter;
-    }
-
     protected SectionComponentFactory<CssLayout> createDefaultSectionComponentFactory() {
         return new DefaultSectionComponentFactory();
-    }
-
-    public class DefaultSectionComponentFactory implements SectionComponentFactory<CssLayout> {
-
-        private ItemComponentFactory itemComponentFactory;
-
-        @Override
-        public void setItemComponentFactory(ItemComponentFactory itemComponentFactory) {
-            this.itemComponentFactory = itemComponentFactory;
-        }
-
-        @Override
-        public void createSection(CssLayout menuPart, CssLayout menuItems, SideBarSectionDescriptor descriptor, Collection<SideBarItemDescriptor> itemDescriptors) {
-            if(!descriptor.getId().equals(Sections.NO_GROUP)) {
-                Label header = new Label();
-                header.setValue(descriptor.getCaption());
-                header.setSizeUndefined();
-                header.setPrimaryStyleName(ValoTheme.MENU_SUBTITLE);
-                menuItems.addComponent(header);
-            }
-            for (SideBarItemDescriptor item : itemDescriptors) {
-                menuItems.addComponent(itemComponentFactory.createItemComponent(menuPart, item));
-            }
-        }
-    }
-
-    public interface SectionComponentFactory<CR extends ComponentContainer> {
-        void setItemComponentFactory(ItemComponentFactory itemComponentFactory);
-        void createSection(CR menuPart, CR menuItems, SideBarSectionDescriptor descriptor, Collection<SideBarItemDescriptor> itemDescriptors);
     }
 
     protected ItemComponentFactory createDefaultItemComponentFactory() {
         return new DefaultItemComponentFactory();
     }
 
-    public class DefaultItemComponentFactory implements ItemComponentFactory {
-        @Override
-        public Component createItemComponent(CssLayout menuPart, SideBarItemDescriptor descriptor) {
-            if (descriptor instanceof SideBarItemDescriptor.ViewItemDescriptor) {
-                return new ViewItemButton(menuPart, (SideBarItemDescriptor.ViewItemDescriptor) descriptor);
-            } else {
-                return new ItemButton(descriptor);
-            }
-        }
+    public interface SectionComponentFactory<CR extends ComponentContainer> {
+        void setItemComponentFactory(ItemComponentFactory itemComponentFactory);
+
+        void createSection(CR menuPart, CR menuItems, SideBarSectionDescriptor descriptor, Collection<SideBarItemDescriptor> itemDescriptors);
     }
 
     public interface ItemComponentFactory {
         Component createItemComponent(CssLayout layout, SideBarItemDescriptor descriptor);
     }
 
+    public interface ItemFilter {
+        boolean passesFilter(SideBarItemDescriptor descriptor);
+    }
+
     static class ViewItemButton extends ItemButton implements ViewChangeListener {
 
+        private static final String STYLE_SELECTED = "selected";
         private final String viewName;
         private final CssLayout menuPart;
-        private static final String STYLE_SELECTED = "selected";
 
         ViewItemButton(CssLayout menuPart, SideBarItemDescriptor.ViewItemDescriptor descriptor) {
             super(descriptor);
@@ -266,8 +223,6 @@ public class VaadinSideBar extends CustomComponent {
             setDisableOnClick(true);
             addClickListener(new ClickListener() {
 
-                private static final long serialVersionUID = -8512905888847432801L;
-
                 @Override
                 public void buttonClick(ClickEvent event) {
                     try {
@@ -281,7 +236,38 @@ public class VaadinSideBar extends CustomComponent {
         }
     }
 
-    public interface ItemFilter {
-        boolean passesFilter(SideBarItemDescriptor descriptor);
+    public class DefaultSectionComponentFactory implements SectionComponentFactory<CssLayout> {
+
+        private ItemComponentFactory itemComponentFactory;
+
+        @Override
+        public void setItemComponentFactory(ItemComponentFactory itemComponentFactory) {
+            this.itemComponentFactory = itemComponentFactory;
+        }
+
+        @Override
+        public void createSection(CssLayout menuPart, CssLayout menuItems, SideBarSectionDescriptor descriptor, Collection<SideBarItemDescriptor> itemDescriptors) {
+            if (!descriptor.getId().equals(Sections.NO_GROUP)) {
+                Label header = new Label();
+                header.setValue(descriptor.getCaption());
+                header.setSizeUndefined();
+                header.setPrimaryStyleName(ValoTheme.MENU_SUBTITLE);
+                menuItems.addComponent(header);
+            }
+            for (SideBarItemDescriptor item : itemDescriptors) {
+                menuItems.addComponent(itemComponentFactory.createItemComponent(menuPart, item));
+            }
+        }
+    }
+
+    public class DefaultItemComponentFactory implements ItemComponentFactory {
+        @Override
+        public Component createItemComponent(CssLayout menuPart, SideBarItemDescriptor descriptor) {
+            if (descriptor instanceof SideBarItemDescriptor.ViewItemDescriptor) {
+                return new ViewItemButton(menuPart, (SideBarItemDescriptor.ViewItemDescriptor) descriptor);
+            } else {
+                return new ItemButton(descriptor);
+            }
+        }
     }
 }

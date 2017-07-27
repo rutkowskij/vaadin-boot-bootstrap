@@ -2,7 +2,6 @@ package io.thingcare.bootstrap.fe.config;
 
 import com.vaadin.server.SessionInitListener;
 import com.vaadin.spring.annotation.EnableVaadin;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,7 +26,6 @@ import org.vaadin.spring.security.shared.VaadinAuthenticationSuccessHandler;
 import org.vaadin.spring.security.shared.VaadinSessionClosingLogoutHandler;
 import org.vaadin.spring.security.shared.VaadinUrlAuthenticationSuccessHandler;
 import org.vaadin.spring.security.web.VaadinRedirectStrategy;
-import org.vaadin.spring.sidebar.SideBarUtils;
 
 @Configuration
 @EnableVaadin
@@ -36,11 +34,12 @@ import org.vaadin.spring.sidebar.SideBarUtils;
 @EnableVaadinSharedSecurity
 public class VaadinSpringConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
-    @Autowired
-    SideBarUtils sideBarUtils;
+
+    public VaadinSpringConfiguration(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

@@ -14,7 +14,6 @@ import io.thingcare.bootstrap.fe.sidebar.VaadinSideBar;
 import io.thingcare.bootstrap.fe.view.AccessDeniedView;
 import io.thingcare.bootstrap.fe.view.ErrorView;
 import io.thingcare.bootstrap.fe.view.ViewContainer;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 
@@ -32,7 +31,6 @@ public class MainUI extends UI {
 
 	private final ViewContainer viewContainer;
 
-	@Autowired
 	public MainUI(SpringViewProvider springViewProvider, SpringNavigator springNavigator, VaadinSideBar vaadinSideBar, ViewContainer viewContainer) {
 		this.springViewProvider = springViewProvider;
 		this.springNavigator = springNavigator;
