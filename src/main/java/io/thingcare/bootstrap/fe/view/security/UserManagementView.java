@@ -15,7 +15,7 @@ import org.vaadin.spring.sidebar.annotation.VaadinFontIcon;
 import javax.annotation.PostConstruct;
 
 
-@Secured({"ROLE_ADMIN"})
+@Secured({"ADMIN"})
 @SpringView(name = UserManagementView.VIEW_NAME)
 @SideBarItem(sectionId = Sections.ADMIN, caption = "User management", order = 1)
 @VaadinFontIcon(VaadinIcons.ADD_DOCK)
@@ -42,7 +42,14 @@ public class UserManagementView extends UserManagementDesign {
     }
 
     private void onUserSelected(HasValue.ValueChangeEvent<User> event) {
-        userDetailsView.setUser(event.getValue());
+        User selectedlUser = event.getValue();
+//        userDetailsView.setUser(event.getValue());
+
+        if (selectedlUser != null) {
+            disableButton.setEnabled(selectedlUser.isEnabled());
+        } else {
+            disableButton.setEnabled(false);
+        }
     }
 }
 

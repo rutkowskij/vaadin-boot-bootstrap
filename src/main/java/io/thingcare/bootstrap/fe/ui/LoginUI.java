@@ -1,6 +1,5 @@
 package io.thingcare.bootstrap.fe.ui;
 
-import com.vaadin.annotations.Theme;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Responsive;
@@ -9,7 +8,6 @@ import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import io.thingcare.bootstrap.fe.ui.shared.BaseUI;
-import io.thingcare.bootstrap.fe.ui.shared.ThemeHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
 import org.vaadin.spring.i18n.I18N;
@@ -18,7 +16,6 @@ import org.vaadin.spring.security.shared.VaadinSharedSecurity;
 import javax.annotation.PostConstruct;
 
 @Slf4j
-@Theme(ThemeHolder.DEFAULT_THEME_NAME)
 @SpringUI(path = "/login")
 public class LoginUI extends BaseUI {
     public static final String TITLE_CODE = "login.title";

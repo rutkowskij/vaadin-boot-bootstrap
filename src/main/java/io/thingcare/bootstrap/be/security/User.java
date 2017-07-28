@@ -16,6 +16,7 @@ public class User extends BaseEntity {
     private String firstName;
     private String lastName;
     private String password;
+    private boolean enabled;
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinTable

@@ -1,6 +1,5 @@
 package io.thingcare.bootstrap.fe.ui;
 
-import com.vaadin.annotations.Theme;
 import com.vaadin.server.Responsive;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
@@ -18,7 +17,6 @@ import org.vaadin.spring.i18n.I18N;
 import javax.annotation.PostConstruct;
 
 
-@Theme("valo-default")
 @SpringUI(path = "/")
 public class MainUI extends BaseUI {
 

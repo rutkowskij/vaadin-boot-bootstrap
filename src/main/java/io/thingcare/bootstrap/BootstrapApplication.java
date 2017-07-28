@@ -33,11 +33,11 @@ public class BootstrapApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if (roleRepository.findAll().isEmpty()) {
-            Arrays.stream(RoleType.values()).forEach(x -> {
-                String name = x.name().split("_")[1].toLowerCase();
+            Arrays.stream(RoleType.values()).forEach(roleType -> {
+                String name = roleType.name().toLowerCase();
 
                 Role role = new Role();
-                role.setType(x);
+                role.setType(roleType);
                 roleRepository.save(role);
 
                 User user = new User();
@@ -45,6 +45,7 @@ public class BootstrapApplication implements CommandLineRunner {
                 user.setFirstName(name);
                 user.setLastName(name);
                 user.setPassword(passwordEncoder.encode("1234"));
+                user.setEnabled(true);
 
                 user.setRoles(Collections.singletonList(role));
                 userRepository.save(user);

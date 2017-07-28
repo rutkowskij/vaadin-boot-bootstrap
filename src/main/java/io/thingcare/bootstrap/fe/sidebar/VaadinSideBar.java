@@ -63,9 +63,7 @@ public class VaadinSideBar extends CustomComponent {
 
         layout.addComponent(top);
 
-        // 반응형 웹 메뉴네비버튼
         final Button showMenu = new Button("Menu", event -> {
-            // 버튼을 클릭하면 toggle 형태로 메뉴파트레이아웃이 보였다 안 보였다 처리
             if (layout.getStyleName().contains(VALO_MENU_VISIBLE)) {
                 layout.removeStyleName(VALO_MENU_VISIBLE);
             } else {
@@ -73,7 +71,6 @@ public class VaadinSideBar extends CustomComponent {
             }
         });
 
-        // 메뉴네비아이콘 스타일 적용
         showMenu.addStyleName(ValoTheme.BUTTON_PRIMARY);
         showMenu.addStyleName(ValoTheme.BUTTON_TINY);
         showMenu.addStyleName(VALO_MENU_TOGGLE);
