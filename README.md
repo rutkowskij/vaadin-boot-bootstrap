@@ -8,6 +8,7 @@ Simple bootstrap / starter application built with Vaadin 8 + Spring Boot stack.
 - Application skeleton
 - User management
 - Authentication / Authorization
+- i18n
 
 ## Screenshots
 ![selection_029](https://user-images.githubusercontent.com/13108942/28800334-8a561d10-764c-11e7-8e4f-e918607ffbd5.png)
