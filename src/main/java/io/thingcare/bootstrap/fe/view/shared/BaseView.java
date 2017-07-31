@@ -7,24 +7,36 @@ import com.vaadin.server.Responsive;
 import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
+import org.vaadin.spring.events.EventBus;
 import org.vaadin.spring.i18n.I18N;
 
+import javax.annotation.PreDestroy;
 import java.util.Arrays;
 import java.util.LinkedList;
 
 public abstract class BaseView extends VerticalLayout implements View {
 
     protected final I18N i18n;
+    protected final EventBus.ViewEventBus eventBus;
     private String title;
     private FontIcon icon;
     private LinkedList<Component> components = new LinkedList<>();
 
-    public BaseView(I18N i18n) {
+
+    public BaseView(I18N i18n, EventBus.ViewEventBus eventBus) {
         this.i18n = i18n;
+        this.eventBus = eventBus;
+
         setWidth(100, Unit.PERCENTAGE);
         setHeightUndefined();
         setMargin(false);
         setSpacing(false);
+        eventBus.subscribe(this, false);
+    }
+
+    @PreDestroy
+    public void destroy() {
+        eventBus.unsubscribe(this);
     }
 
     @Override

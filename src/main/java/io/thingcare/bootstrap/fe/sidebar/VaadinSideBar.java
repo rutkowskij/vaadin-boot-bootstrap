@@ -1,12 +1,18 @@
 package io.thingcare.bootstrap.fe.sidebar;
 
+import com.google.common.eventbus.Subscribe;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
+import io.thingcare.bootstrap.be.security.User;
+import io.thingcare.bootstrap.fe.component.ProfilePreferencesWindow;
+import io.thingcare.bootstrap.fe.event.MainEvent;
+import io.thingcare.bootstrap.fe.event.MainEventBus;
 import org.vaadin.spring.security.VaadinSecurity;
 import org.vaadin.spring.sidebar.SideBarItemDescriptor;
 import org.vaadin.spring.sidebar.SideBarSectionDescriptor;
@@ -15,6 +21,8 @@ import org.vaadin.spring.sidebar.SideBarUtils;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import static io.thingcare.bootstrap.be.security.SecurityContextUtils.getUser;
 
 
 @SpringComponent
@@ -28,6 +36,7 @@ public class VaadinSideBar extends CustomComponent {
     private SectionComponentFactory<CssLayout> sectionComponentFactory;
     private ItemComponentFactory itemComponentFactory;
     private ItemFilter itemFilter;
+    private MenuBar.MenuItem settingsItem;
 
     public VaadinSideBar(SideBarUtils sideBarUtils, VaadinSecurity vaadinSecurity) {
         setPrimaryStyleName(ValoTheme.MENU_ROOT);
@@ -51,15 +60,18 @@ public class VaadinSideBar extends CustomComponent {
 
     private CssLayout createMenuPart() {
         final CssLayout layout = new CssLayout();
+        layout.setId("menuPart");
         layout.addStyleName(ValoTheme.MENU_PART);
 
-        final Label title = new Label("<h3>Vaadin <strong>Project</strong></h3>", ContentMode.HTML);
-        title.setSizeUndefined();
-
-        final HorizontalLayout top = new HorizontalLayout();
-        top.setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
+        final VerticalLayout top = new VerticalLayout();
+        top.setId("top");
+        top.setSpacing(false);
         top.addStyleName(ValoTheme.MENU_TITLE);
+        Component title = buildTitle();
         top.addComponent(title);
+        Component userMenu = buildUserMenu();
+        top.addComponent(userMenu);
+        top.setExpandRatio(userMenu, 1.0f);
 
         layout.addComponent(top);
 
@@ -79,6 +91,46 @@ public class VaadinSideBar extends CustomComponent {
         layout.addComponent(showMenu);
 
         return layout;
+    }
+
+    private Component buildTitle() {
+        Label logo = new Label("<strong>Bootstrap</strong> project", ContentMode.HTML);
+        logo.setSizeUndefined();
+
+        return logo;
+    }
+
+
+    private Component buildUserMenu() {
+        final MenuBar settings = new MenuBar();
+        settings.setWidth(100, Unit.PERCENTAGE);
+
+        User currentUser = getUser();
+        settings.addStyleName("user-menu");
+
+        settingsItem = settings.addItem("",
+                new ThemeResource("img/profile-pic-300px.jpg"), null);
+        settingsItem.addItem("Edit Profile", (MenuBar.Command) selectedItem -> ProfilePreferencesWindow.open(currentUser, false));
+        settingsItem.addItem("Preferences", (MenuBar.Command) selectedItem -> ProfilePreferencesWindow.open(currentUser, true));
+        settingsItem.addSeparator();
+        settingsItem.addItem("Sign Out", (MenuBar.Command) selectedItem -> MainEventBus.post(new MainEvent.UserLoggedOutEvent()));
+
+
+        updateCurrentUser(currentUser);
+        return settings;
+    }
+
+    @Subscribe
+    public void updateUserName(final MainEvent.ProfileUpdatedEvent event) {
+        updateCurrentUser(getUser());
+    }
+
+    private void updateCurrentUser(User currentUser) {
+        settingsItem.setText(loggedUserCaption(currentUser));
+    }
+
+    private String loggedUserCaption(User currentUser) {
+        return currentUser.getEmail();
     }
 
     private CssLayout createMenuItems(CssLayout menuPart) {
@@ -218,17 +270,12 @@ public class VaadinSideBar extends CustomComponent {
             setIcon(descriptor.getIcon());
             setId(descriptor.getItemId());
             setDisableOnClick(true);
-            addClickListener(new ClickListener() {
-
-                @Override
-                public void buttonClick(ClickEvent event) {
-                    try {
-                        descriptor.itemInvoked(getUI());
-                    } finally {
-                        setEnabled(true);
-                    }
+            addClickListener((ClickListener) event -> {
+                try {
+                    descriptor.itemInvoked(getUI());
+                } finally {
+                    setEnabled(true);
                 }
-
             });
         }
     }

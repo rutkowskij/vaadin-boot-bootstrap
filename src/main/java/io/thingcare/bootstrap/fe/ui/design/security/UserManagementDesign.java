@@ -1,10 +1,12 @@
-package io.thingcare.bootstrap.fe.ui.design;
+package io.thingcare.bootstrap.fe.ui.design.security;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import io.thingcare.bootstrap.be.security.User;
+import io.thingcare.bootstrap.fe.view.security.UserDetailsView;
 import io.thingcare.bootstrap.fe.view.shared.BaseView;
+import org.vaadin.spring.events.EventBus;
 import org.vaadin.spring.i18n.I18N;
 
 import java.util.stream.Collectors;
@@ -12,32 +14,40 @@ import java.util.stream.Collectors;
 public class UserManagementDesign extends BaseView {
     protected TextField search = new TextField();
     protected Button addButton = new Button();
+    protected Button editButton = new Button();
     protected Button disableButton = new Button();
     protected Grid<User> userGrid = new Grid<>();
-//    protected UserDetailsView userDetailsView;
 
-    public UserManagementDesign(I18N i18n) {
-        super(i18n);
-//        this.userDetailsView = new UserDetailsView(i18n);
+    protected UserDetailsView userDetailsView;
+    protected HorizontalLayout topBar;
+    protected VerticalLayout mainLayout;
+    protected CssLayout gridLayout;
+
+    public UserManagementDesign(I18N i18n, EventBus.ViewEventBus eventBus) {
+        super(i18n, eventBus);
+        this.userDetailsView = new UserDetailsView(i18n, eventBus);
+        this.userDetailsView.setEnabled(false);
+        this.userDetailsView.setVisible(false);
 
         designSearch();
         designAddButton();
+        designEditButton();
         designDisableButton();
         designUserGrid();
 
         HorizontalLayout searchLayout = designSearchLayout();
-        HorizontalLayout topBar = designTopBar(searchLayout);
-        CssLayout gridLayout = designGridLayout();
+        topBar = designTopBar(searchLayout);
+        gridLayout = designGridLayout();
 
-        VerticalLayout mainLayout = designMainLayout(topBar, gridLayout);
+        mainLayout = designMainLayout(topBar, gridLayout, userDetailsView);
 
         setSizeFull();
         addComponent(mainLayout);
     }
 
 
-    private VerticalLayout designMainLayout(HorizontalLayout topBar, CssLayout gridLayout) {
-        VerticalLayout main = new VerticalLayout(topBar, gridLayout);
+    private VerticalLayout designMainLayout(HorizontalLayout topBar, CssLayout gridLayout, UserDetailsView userDetailsView) {
+        VerticalLayout main = new VerticalLayout(topBar, gridLayout, userDetailsView);
         main.setExpandRatio(gridLayout, 1f);
         main.setResponsive(true);
         main.setSizeFull();
@@ -50,8 +60,8 @@ public class UserManagementDesign extends BaseView {
         return content;
     }
 
+
     private void designUserGrid() {
-        userGrid.getEditor().setEnabled(true);
         userGrid.setSizeFull();
         userGrid.addStyleName(ValoTheme.LABEL_HUGE);
         userGrid.addColumn(User::getEmail).setCaption("Email");
@@ -69,12 +79,13 @@ public class UserManagementDesign extends BaseView {
     }
 
     private HorizontalLayout designTopBar(HorizontalLayout searchLayout) {
-        HorizontalLayout topBar = new HorizontalLayout(searchLayout, addButton, disableButton);
+        HorizontalLayout topBar = new HorizontalLayout(searchLayout, addButton, editButton, disableButton);
         topBar.setWidth(100, Unit.PERCENTAGE);
         topBar.setHeight(50, Unit.PIXELS);
         topBar.setExpandRatio(searchLayout, 1.0f);
         topBar.setComponentAlignment(searchLayout, Alignment.MIDDLE_LEFT);
         topBar.setComponentAlignment(addButton, Alignment.MIDDLE_RIGHT);
+        topBar.setComponentAlignment(editButton, Alignment.MIDDLE_RIGHT);
         topBar.setComponentAlignment(disableButton, Alignment.MIDDLE_RIGHT);
         return topBar;
     }
@@ -85,6 +96,15 @@ public class UserManagementDesign extends BaseView {
         addButton.setStyleName(ValoTheme.BUTTON_FRIENDLY, true);
         addButton.setCaption("Add new");
         addButton.setResponsive(true);
+    }
+
+    private void designEditButton() {
+        disableButton.setEnabled(false);
+        editButton.setIcon(VaadinIcons.EDIT);
+        editButton.setStyleName(ValoTheme.BUTTON_LARGE);
+        editButton.setStyleName(ValoTheme.BUTTON_FRIENDLY, true);
+        editButton.setCaption("Edit");
+        editButton.setResponsive(true);
     }
 
     private void designDisableButton() {

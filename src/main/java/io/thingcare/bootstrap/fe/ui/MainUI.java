@@ -7,6 +7,7 @@ import com.vaadin.spring.navigator.SpringNavigator;
 import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.themes.ValoTheme;
+import io.thingcare.bootstrap.fe.event.MainEventBus;
 import io.thingcare.bootstrap.fe.sidebar.VaadinSideBar;
 import io.thingcare.bootstrap.fe.ui.shared.BaseUI;
 import io.thingcare.bootstrap.fe.view.shared.AccessDeniedView;
@@ -28,12 +29,18 @@ public class MainUI extends BaseUI {
 
     private final ViewContainer viewContainer;
 
+    private final MainEventBus mainEventBus = new MainEventBus();
+
     public MainUI(SpringViewProvider springViewProvider, SpringNavigator springNavigator, VaadinSideBar vaadinSideBar, ViewContainer viewContainer, I18N i18n) {
         super(i18n);
         this.springViewProvider = springViewProvider;
         this.springNavigator = springNavigator;
         this.vaadinSideBar = vaadinSideBar;
         this.viewContainer = viewContainer;
+    }
+
+    public static MainEventBus mainEventBus() {
+        return ((MainUI) getCurrent()).mainEventBus;
     }
 
     @PostConstruct

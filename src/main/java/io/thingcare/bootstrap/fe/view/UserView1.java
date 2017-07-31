@@ -5,6 +5,7 @@ import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Label;
 import io.thingcare.bootstrap.fe.sidebar.Sections;
 import io.thingcare.bootstrap.fe.view.shared.BaseView;
+import org.vaadin.spring.events.EventBus;
 import org.vaadin.spring.i18n.I18N;
 import org.vaadin.spring.sidebar.annotation.SideBarItem;
 import org.vaadin.spring.sidebar.annotation.VaadinFontIcon;
@@ -18,8 +19,8 @@ public class UserView1 extends BaseView {
 
     public static final String VIEW_NAME = "user_view_1";
 
-    public UserView1(I18N i18n) {
-        super(i18n);
+    public UserView1(I18N i18n, EventBus.ViewEventBus eventBus) {
+        super(i18n, eventBus);
         setViewHeader("UserView1", VaadinIcons.ADJUST);
     }
 

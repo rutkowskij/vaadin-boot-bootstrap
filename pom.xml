@@ -65,6 +65,11 @@
             <artifactId>vaadin-spring-addon-i18n</artifactId>
             <version>${vaadin.extensions.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.vaadin.spring.addons</groupId>
+            <artifactId>vaadin-spring-addon-eventbus</artifactId>
+            <version>${vaadin.extensions.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>com.google.guava</groupId>
